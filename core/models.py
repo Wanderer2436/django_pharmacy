@@ -15,6 +15,7 @@ class Product(models.Model):
     country = models.CharField('Страна производителя', max_length=15, blank=True, null=True)
     price = models.IntegerField('Цена товара', max_length=5)
     description = models.TextField('Описание товара', max_length=250, blank=True, null=True)
+    photo = models.ImageField('Изображение товара', upload_to='products/', blank=True)
 
     def __str__(self):
         return self.name
@@ -25,6 +26,7 @@ class Pharmacy(models.Model):
     street = models.CharField("Улица", max_length=50, blank=True, null=True)
     house = models.IntegerField("Номер дома", blank=True, null=True)
     phone = models.IntegerField("Номер телефона", blank=True, null=True)
+    photo = models.ImageField('Изображение аптеки', upload_to='pharmacies/', blank=True)
 
     def __str__(self):
         return self.name
