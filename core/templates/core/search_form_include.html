@@ -1,0 +1,10 @@
+{% load bootstrap5 %}
+
+<form class="row g-3" style="margin-top:1%">
+    <div class="col-auto">
+        {% bootstrap_form filters.form layout='horizontal' %}
+    </div>
+    <div class="col-auto">
+        {% bootstrap_button "Поиск" button_type="submit" button_class="btn-primary"%}
+    </div>
+</form>

@@ -14,7 +14,7 @@ class Product(models.Model):
     type = models.CharField('Форма выпуска', max_length=50, blank=True)
     manufacturer = models.CharField('Производитель', max_length=20, blank=True, null=True)
     country = models.CharField('Страна производителя', max_length=15, blank=True, null=True)
-    price = models.IntegerField('Цена товара', max_length=5)
+    price = models.IntegerField('Цена товара')
     photo = models.ImageField('Изображение товара', upload_to='products/', blank=True)
     indications_for_use = models.TextField('Показания к применению', blank=True)
     mode_of_application = models.TextField('Способ применения', blank=True)

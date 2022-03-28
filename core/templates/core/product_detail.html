@@ -1,0 +1,65 @@
+{% extends 'core/base.html'  %}
+{% block content %}
+
+<div class="container-lg mt-5">
+    <img src="{{product.photo.url}}" class="rounded float-start" style="width: 28rem; height: 18rem; object-fit: flex;">
+    <ul class="list-group list-group-flush mt-5">
+        <li class="list-group-item"><h1> {{ product.name }} </h1></li>
+        <li class="list-group-item"><h3> Цена: {{ product.price }} рублей </h3></li>
+        <li class="list-group-item">Категория: {{ product.category }}</li>
+        <li class="list-group-item">Форма выпуска: {{ product.type }}</li>
+        <li class="list-group-item">Производитель: {{ product.manufacturer }}</li>
+        <li class="list-group-item">Страна производитель: {{ product.country }}</li>
+    </ul>
+    <div class="accordion accordion-flush" id="accordionFlushExample">
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="flush-headingOne">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+                    Показания к применению
+                </button>
+            </h2>
+            <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne"
+                 data-bs-parent="#accordionFlushExample">
+                <div class="accordion-body"> {{ product.indications_for_use }}</div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="flush-headingTwo">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
+                    Способ применения
+                </button>
+            </h2>
+            <div id="flush-collapseTwo" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo"
+                 data-bs-parent="#accordionFlushExample">
+                <div class="accordion-body"> {{ product.mode_of_application }}</div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="flush-headingThree">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#flush-collapseThree" aria-expanded="false" aria-controls="flush-collapseThree">
+                    Состав
+                </button>
+            </h2>
+            <div id="flush-collapseThree" class="accordion-collapse collapse" aria-labelledby="flush-headingThree"
+                 data-bs-parent="#accordionFlushExample">
+                <div class="accordion-body"> {{ product.composition }}</div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="flush-headingFour">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#flush-collapseFour" aria-expanded="false" aria-controls="flush-collapseFour">
+                    Противопоказания
+                </button>
+            </h2>
+            <div id="flush-collapseFour" class="accordion-collapse collapse" aria-labelledby="flush-headingFour"
+                 data-bs-parent="#accordionFlushExample">
+                <div class="accordion-body"> {{ product.contraindications }}</div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
