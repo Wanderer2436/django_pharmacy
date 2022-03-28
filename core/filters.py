@@ -11,3 +11,11 @@ class ProductFilter(django_filters.FilterSet):
     class Meta:
         model = core.models.Product
         fields = ('name', 'manufacturer', 'price', 'country',)
+
+
+class PharmacyFilter(django_filters.FilterSet):
+    street = django_filters.Filter(lookup_expr='icontains', label='Адрес:')
+
+    class Meta:
+        model = core.models.Pharmacy
+        fields = ('street',)

@@ -1,0 +1,25 @@
+{% extends 'core/base.html'  %}
+{% block content %}
+
+<table class="table">
+    <thead>
+    <tr>
+        <th scope="col">#</th>
+        <th scope="col">Товар</th>
+        <th scope="col">Количество</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for product in object_list %}
+    <tr>
+        <th scope="row">{{ forloop.counter }}</th>
+        <td>{{product.product}}</td>
+        <td>{{product.quantity}}</td>
+    </tr>
+    {% empty %}
+    <h2>Нет товаров</h2>
+    {% endfor %}
+    </tbody>
+</table>
+
+{% endblock %}
