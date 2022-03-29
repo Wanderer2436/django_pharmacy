@@ -4,12 +4,13 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="/node_modules/bootstrap/dist/css/bootstrap.css" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/8878a43cf5.js" crossorigin="anonymous"></script>
     <title>{{ title }}</title>
 </head>
 <body>
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container-fluid">
-        <a class="navbar-brand" href="#">Сайт аптеки</a>
+        <a class="navbar-brand" href="#"><i class="fa-solid fa-briefcase-medical"></i> Сайт аптеки</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
                 aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -31,6 +32,14 @@
                 </li>
             </ul>
         </div>
+        <ul class="navbar-nav">
+                        <li class="nav-item">
+                    <a class="nav-link" href="#">Корзина <i class="fa-solid fa-basket-shopping"></i></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'users:login' %}">Пользователь <i class="fa-solid fa-user"></i></a>
+                </li>
+        </ul>
     </div>
 </nav>
 {% block content%}

@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'bootstrap5',
     'django_filters',
     'core.apps.CoreConfig',
+    'users.apps.UsersConfig',
 ]
 
 MIDDLEWARE = [
