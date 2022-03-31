@@ -18,11 +18,12 @@
                 <div class="card-body">
                     <h5 class="card-title"><a href="{% url 'core:products' product.pk %}">{{ product.name }}</a></h5>
                     <p class="card-text">Цена: {{ product.price}}</p>
-                    <div class="btn-group" role="group" aria-label="Basic example">
-                        <button type="button" class="btn btn-primary">Минус</button>
-                        <button type="text" class="btn btn-primary">Middle</button>
-                        <button type="button" class="btn btn-primary">Плюс</button>
-                    </div>
+                     {% if user.is_authenticated%}
+                    <form method="post" action="{% url 'core:add_cart' product.pk %}">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-primary"> Добавить в корзину</button>
+                    </form>
+                    {% endif %}
                 </div>
             </div>
         </div>

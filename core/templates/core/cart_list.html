@@ -1,0 +1,50 @@
+{% extends 'core/base.html'  %}
+{% block content %}
+<table class="table">
+    <thead>
+    <tr>
+        <th scope="col">Название</th>
+        <th scope="col">Количество</th>
+        <th scope="col">Цена за 1</th>
+        <th scope="col"> Общая цена</th>
+        <th scope="col"></th>
+        <th scope="col"></th>
+        <th scope="col"></th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for item in object_list %}
+    <tr>
+        <td>{{ item.product.name }}</td>
+        <td>{{ item.quantity }}</td>
+        <td>{{ item.product.price }}</td>
+        <td>{{ item.total_price }}</td>
+        <td>
+            <form method="post" action="{% url 'core:plus_item' item.pk %}">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-primary"><i class="fa-solid fa-plus"></i></i></button>
+            </form>
+        </td>
+        <td>
+            <form method="post" action="{% url 'core:minus_item' item.pk %}">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-primary"><i class="fa-solid fa-minus"></i></i></button>
+            </form>
+        </td>
+        <td>
+            <form method="post" action="{% url 'core:delete_item' item.pk %}">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-primary"><i class="fa-solid fa-trash"></i></button>
+            </form>
+        </td>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+    <h1> Итого: {{ total_sum }}</h1>
+<form method="post" action="{% url 'core:order'%}">
+    {% csrf_token %}
+    <button type="submit" class="btn btn-primary">Оформить заказ</button>
+</form>
+
+{% endblock %}

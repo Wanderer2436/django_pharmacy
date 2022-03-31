@@ -32,8 +32,8 @@
                 </li>
             </ul>
         </div>
-        <a class="nav-link" href="#">Корзина <i class="fa-solid fa-basket-shopping"></i></a>
         {% if user.is_authenticated%}
+         <a class="nav-link" href="{% url 'core:cart' %}">Корзина <i class="fa-solid fa-basket-shopping"></i></a>
         <span class="navbar-text">{{ user.username }}</span>
         <a class="nav-link" href="{% url 'users:logout'%}">Выход</a>
         {% else %}
