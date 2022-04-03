@@ -38,10 +38,15 @@
             </form>
         </td>
     </tr>
+
+    {% empty %}
+    <h2>Корзина пуста</h2>
     {% endfor %}
     </tbody>
 </table>
+  {% if total_sum %}
     <h1> Итого: {{ total_sum }}</h1>
+ {% endif %}
 <form method="post" action="{% url 'core:order'%}">
     {% csrf_token %}
     <button type="submit" class="btn btn-primary">Оформить заказ</button>

@@ -70,9 +70,15 @@ class CartItem(models.Model):
     def __str__(self):
         return f'{self.cart}, {self.product}'
 
-    def get_total_price_of_items(self):
-        qty = self.items.all().aggregate(Sum('quantity'))
-        return qty['sum']
+
+class Review(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    review = models.TextField('Отзыв')
+    date = models.DateTimeField('Дата добавления', auto_now_add=True, blank=True, null=True)
+
+    def __str__(self):
+        return self.review
 
 
 

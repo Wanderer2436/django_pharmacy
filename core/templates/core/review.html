@@ -1,0 +1,13 @@
+{% extends 'core/base.html' %}
+{% block content %}
+{% load bootstrap5 %}
+<div style="width: 50%; margin: 1rem">
+    <form method="post">
+        {% csrf_token %}
+        {% bootstrap_form form %}
+        {% buttons %}
+        <button type="submit" class="btn btn-primary">готово</button>
+        {% endbuttons %}
+    </form>
+</div>
+{% endblock %}

@@ -1,9 +1,10 @@
 from django.db.models import Count, Sum, Max
 from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404, redirect
-from django.views.generic import TemplateView, ListView, DetailView
+from django.views.generic import TemplateView, ListView, DetailView, CreateView
 import core.models
 import core.filters
+from django.urls import reverse
 
 
 class TitleMixin:
@@ -33,6 +34,7 @@ class ProductList(TitleMixin, ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data()
         context['category'] = core.models.Category.objects.all()
+        context['review'] = core.models.Review.objects.all()
         context['filters'] = self.get_filters()
         return context
 
@@ -47,6 +49,27 @@ class ProductList(TitleMixin, ListView):
 class ProductDetail(TitleMixin, DetailView):
     model = core.models.Product
     title = 'Товар'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data()
+        context['review'] = core.models.Review.objects.all()
+        return context
+
+
+class Review(TitleMixin, CreateView):
+    model = core.models.Review
+    title = 'Добавление отзыва'
+    template_name = 'core/review.html'
+    fields = ['review']
+    product = None
+
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        self.product = form.instance.product = core.models.Product.objects.get(pk=self.kwargs['pk'])
+        return super().form_valid(form)
+
+    def get_success_url(self):
+        return reverse('core:products', kwargs={'pk': self.kwargs['pk']})
 
 
 class PharmacyList(TitleMixin, ListView):
