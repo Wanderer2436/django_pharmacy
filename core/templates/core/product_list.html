@@ -1,33 +1,44 @@
 {% extends 'core/base.html'  %}
 {% block content %}
 {% include 'core/search_form_include.html' %}
-<div class="list-group">
+<div class="list-group list-group-horizontal">
     {% for cat in category %}
-    <a href="{% url 'core:category' cat.pk %}" class="list-group-item list-group-item-action">{{ cat.name }}</a>
+    <li class="list-group-item"><a href="{% url 'core:category' cat.pk %}"> {{ cat.name }}</a></li>
     {% endfor %}
 </div>
 <div class="container">
     <div class="row row-cols-1 row-cols-md-3 g-4">
         {% for product in products %}
         <div class="col">
-            <div class="card" style="width: 25rem; height: 25rem">
+            <div class="card" style="width: 20rem; height: 25rem">
                 {% if product.photo %}
                 <img class="card-img-top" src="{{ product.photo.url }}"
-                     style="width: 23rem; height: 15rem; object-fit: cover;">
+                     style="width: 20rem; height: 15rem; object-fit: flex;">
                 {% endif %}
                 <div class="card-body">
                     <h5 class="card-title"><a href="{% url 'core:products' product.pk %}">{{ product.name }}</a></h5>
                     <p class="card-text">Цена: {{ product.price}}</p>
-                     {% if user.is_authenticated%}
+                    {% if user.is_authenticated%}
                     <form method="post" action="{% url 'core:add_cart' product.pk %}">
-                    {% csrf_token %}
-                    <button type="submit" class="btn btn-primary"> Добавить в корзину</button>
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-primary"> Добавить в корзину</button>
                     </form>
                     {% endif %}
                 </div>
             </div>
         </div>
         {% endfor %}
+        {% if user.is_stuff or user.is_superuser%}
+        <div class="col">
+            <a href="{% url 'core:product_create' %}" style="text-decoration: none">
+                <div class="card">
+                    <div align="center" class="card-body">
+                        <h1 class="card-title">+</h1>
+                    </div>
+                </div>
+            </a>
+        </div>
+        {% endif %}
     </div>
 </div>
 {% endblock %}

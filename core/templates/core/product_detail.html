@@ -2,6 +2,14 @@
 {% block content %}
 
 <div class="container-lg mt-5">
+    {% if user.is_stuff or user.is_superuser%}
+    <button class="btn btn-outline-primary" onclick="location.href='{% url 'core:product_delete' product.pk%}'"
+            type="button" style="float: right;"> Удалить
+    </button>
+    <button class="btn btn-outline-primary" onclick="location.href='{% url 'core:product_update' product.pk %}'"
+            type="button" style="float: right;"> Изменить
+    </button>
+    {% endif %}
     {% if product.photo %}
     <img src="{{product.photo.url}}" class="rounded float-start" style="width: 28rem; height: 18rem; object-fit: flex;">
     {% endif %}
@@ -64,21 +72,21 @@
             </div>
         </div>
     </div>
-     <div class="card">
+    <div class="card">
         <div class="card-body">
-        <h3>Отзывы</h3>
-        {% for rev in review %}
-        <div class="card">
-            <div class="card-body">
-                <h4>{{ rev.user }}</h4>
-                <p>{{ rev.review }}</p>
-                <p>{{ rev.date }}</p>
+            <h3>Отзывы</h3>
+            {% for rev in review %}
+            <div class="card">
+                <div class="card-body">
+                    <h4>{{ rev.user }}</h4>
+                    <p>{{ rev.review }}</p>
+                    <p>{{ rev.date }}</p>
+                </div>
             </div>
-        </div>
-        {% endfor %}
-        <button class="btn btn-outline-primary" onclick="location.href='{% url 'core:review' product.pk %}'"
-                type="button"> Добавить отзыв
-        </button>
+            {% endfor %}
+            <button class="btn btn-outline-primary" onclick="location.href='{% url 'core:review' product.pk %}'"
+                    type="button"> Добавить отзыв
+            </button>
         </div>
     </div>
 </div>

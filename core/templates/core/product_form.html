@@ -1,0 +1,10 @@
+{% extends 'core/base.html' %}
+{% load bootstrap5 %}
+{% block content %}
+<div style="width: 50%; margin: 1rem">
+<form method="post" enctype="multipart/form-data">{% csrf_token %}
+    {% bootstrap_form form %}
+    <input type="submit" value="сохранить">
+</form>
+</div>
+{% endblock %}

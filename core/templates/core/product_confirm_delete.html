@@ -1,0 +1,17 @@
+{% extends 'core/base.html' %}
+{% load bootstrap5 %}
+{% block content %}
+<div class="alert alert-danger">
+    Вы действительно хотите удалить "{{ object }}"?
+</div>
+
+<form method="post">{% csrf_token %}
+    <button class="btn btn-danger" type="submit">
+        Да
+    </button>
+    <button class="btn btn-success" onclick="location.href='{% url 'core:catalog' %}'" type="button">
+        нет
+    </button>
+</form>
+
+{% endblock %}

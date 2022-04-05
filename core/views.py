@@ -1,10 +1,10 @@
-from django.db.models import Count, Sum, Max
-from django.http import HttpResponse
+from django.db.models import Sum
 from django.shortcuts import render, get_object_or_404, redirect
-from django.views.generic import TemplateView, ListView, DetailView, CreateView
+from django.views.generic import TemplateView, ListView, DetailView, CreateView, UpdateView, DeleteView
 import core.models
 import core.filters
 from django.urls import reverse
+import core.forms
 
 
 class TitleMixin:
@@ -104,6 +104,36 @@ class CartList(TitleMixin, ListView):
         context = super().get_context_data()
         context['total_sum'] = core.models.CartItem.objects.all().aggregate(Sum('total_price'))['total_price__sum']
         return context
+
+
+class ProductUpdate(TitleMixin, UpdateView):
+    model = core.models.Product
+    form_class = core.forms.ProductEdit
+
+    def get_title(self):
+        return f'Изменение данных товара "{str(self.get_object())}"'
+
+    def get_success_url(self):
+        return reverse('core:catalog')
+
+
+class ProductCreate(TitleMixin, CreateView):
+    model = core.models.Product
+    form_class = core.forms.ProductEdit
+    title = 'Добавление товара'
+
+    def get_success_url(self):
+        return reverse('core:catalog')
+
+
+class ProductDelete(TitleMixin, DeleteView):
+    model = core.models.Product
+
+    def get_title(self):
+        return f'Удаление товара {str(self.get_object())}'
+
+    def get_success_url(self):
+        return reverse('core:catalog')
 
 
 def add_cart(request, pk):
