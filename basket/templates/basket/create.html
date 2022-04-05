@@ -1,0 +1,17 @@
+{% extends "core/base.html" %}
+{% block content %}
+<h1>Заказ</h1>
+<h4> Покупатель: {{user}} </h4>
+<h4> Детали заказа: </h4>
+<ol class="list-group list-group-flush">
+    {% for item in basket %}
+    <li class="list-group-item">{{ item.quantity }}X {{ item.product.name }} ₽{{ item.total_price }}
+    </li>
+    {% endfor %}
+    <h4>Итого: ₽{{ basket.get_total_price }}</h4>
+</ol>
+<form method="post" action="{% url 'basket:order_complete'%}">
+    {% csrf_token %}
+    <button type="submit" class="btn btn-primary">Заказать</button>
+</form>
+{% endblock %}

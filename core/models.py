@@ -1,6 +1,5 @@
 from django.db import models
 from django.contrib.auth.models import User
-from django.db.models import Sum
 
 
 class Category(models.Model):
@@ -47,28 +46,6 @@ class Available(models.Model):
 
     def __str__(self):
         return f'{self.pharmacy} {self.product} {self.quantity}'
-
-
-class Cart(models.Model):
-    user = models.ForeignKey(User, null=True, blank=True, on_delete=models.CASCADE)
-
-    def __str__(self):
-        return f'Корзина для {self.user}'
-
-
-class CartItem(models.Model):
-    cart = models.OneToOneField(Cart, null=True, related_name='items', blank=True, on_delete=models.CASCADE)
-    product = models.ForeignKey(Product, on_delete=models.DO_NOTHING)
-    quantity = models.IntegerField(default=1)
-    price = models.FloatField(blank=True, default=0)
-    total_price = models.PositiveIntegerField(blank=True, null=True)
-
-    def save(self, *args, **kwargs):
-        self.total_price = (self.price * self.quantity)
-        super().save(*args, **kwargs)
-
-    def __str__(self):
-        return f'{self.cart}, {self.product}'
 
 
 class Review(models.Model):

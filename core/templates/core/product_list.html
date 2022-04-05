@@ -17,11 +17,11 @@
                 {% endif %}
                 <div class="card-body">
                     <h5 class="card-title"><a href="{% url 'core:products' product.pk %}">{{ product.name }}</a></h5>
-                    <p class="card-text">Цена: {{ product.price}}</p>
+                    <p class="card-text">Цена: ₽{{ product.price}}</p>
                     {% if user.is_authenticated%}
-                    <form method="post" action="{% url 'core:add_cart' product.pk %}">
+                    <form method="post" action="{% url 'basket:basket_add' product.id %}">
                         {% csrf_token %}
-                        <button type="submit" class="btn btn-primary"> Добавить в корзину</button>
+                        <button type="submit" class="btn btn-success"> Добавить в корзину</button>
                     </form>
                     {% endif %}
                 </div>

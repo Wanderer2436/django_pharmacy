@@ -1,0 +1,54 @@
+{% extends "core/base.html" %}
+{% block content %}
+<button type="button" class="btn btn-light"><a href="{% url 'core:catalog' %}">Назад</a></button>
+<h1> Корзина </h1>
+<table class="table">
+    <thead>
+    <tr>
+        <th>Товар</th>
+        <th>Количество</th>
+        <th>Цена за штуку</th>
+        <th>Стоимость</th>
+        <th><i class="fa-solid fa-plus"></i></th>
+        <th><i class="fa-solid fa-minus"></i></th>
+        <th>Удалить</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for item in basket %}
+    {% with product=item.product %}
+    <tr>
+        <td>{{ product.name }}</td>
+        <td>{{ item.quantity }}</td>
+        <td class="num">₽{{ item.price }}</td>
+        <td class="num">₽{{ item.total_price }}</td>
+        <td>
+            <form method="post" action="{% url 'basket:plus_item' product.id %}">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-primary"><i class="fa-solid fa-plus"></i></button>
+            </form>
+        </td>
+        <td>
+            <form method="post" action="{% url 'basket:minus_item' product.id %}">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-primary"><i class="fa-solid fa-minus"></i></button>
+            </form>
+        </td>
+        <td>
+            <form method="post" action="{% url 'basket:basket_delete' product.id %}">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-primary"><i class="fa-solid fa-trash"></i></button>
+            </form>
+        </td>
+    </tr>
+    {% endwith %}
+    {% endfor %}
+    </tbody>
+</table>
+<h2> Итого: ₽{{ basket.get_total_price }}</h2>
+<form method="post" action="{% url 'basket:order_create' %}">
+    {% csrf_token %}
+    <button type="submit" class="btn btn-success">Оформить заказ</button>
+</form>
+{% endblock %}
+

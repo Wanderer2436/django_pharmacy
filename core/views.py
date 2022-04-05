@@ -95,17 +95,6 @@ class ProductInPharmacy(TitleMixin, ListView):
         return core.models.Available.objects.filter(pharmacy_id=self.kwargs['pharmacy_id'])
 
 
-class CartList(TitleMixin, ListView):
-    title = 'Корзина'
-    model = core.models.CartItem
-    template_name = 'core/cart_list.html'
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data()
-        context['total_sum'] = core.models.CartItem.objects.all().aggregate(Sum('total_price'))['total_price__sum']
-        return context
-
-
 class ProductUpdate(TitleMixin, UpdateView):
     model = core.models.Product
     form_class = core.forms.ProductEdit
@@ -136,38 +125,5 @@ class ProductDelete(TitleMixin, DeleteView):
         return reverse('core:catalog')
 
 
-def add_cart(request, pk):
-    cart = core.models.Cart.objects.get_or_create(user=request.user)[0]
-    print(request.user.pk)
-    product = get_object_or_404(core.models.Product, pk=pk)
-    cartitem = core.models.CartItem.objects.get_or_create(cart_id=cart.pk, product=product, price=product.price)
-    return redirect('/cart/')
 
 
-def delete_item(request, pk):
-    record = core.models.CartItem.objects.get(pk=pk)
-    record.delete()
-    return redirect('/cart/')
-
-
-def plus_item(request, pk):
-    item = core.models.CartItem.objects.get(pk=pk)
-    item.quantity += 1
-    item.save()
-    return redirect('/cart/')
-
-
-def minus_item(request, pk):
-    item = core.models.CartItem.objects.get(pk=pk)
-    if item.quantity > 1:
-        item.quantity -= 1
-        item.save()
-    else:
-        item.delete()
-    return redirect('/cart/')
-
-
-def order(request):
-    record = core.models.CartItem.objects.all()
-    record.delete()
-    return redirect('core:home')

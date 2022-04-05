@@ -1,12 +1,12 @@
 {% extends 'core/base.html'  %}
 {% block content %}
-
+    <button type="button" class="btn btn-light"><a href="{% url 'core:catalog' %}">Назад</a></button>
 <div class="container-lg mt-5">
     {% if user.is_stuff or user.is_superuser%}
-    <button class="btn btn-outline-primary" onclick="location.href='{% url 'core:product_delete' product.pk%}'"
+    <button class="btn btn-outline-danger" onclick="location.href='{% url 'core:product_delete' product.pk%}'"
             type="button" style="float: right;"> Удалить
     </button>
-    <button class="btn btn-outline-primary" onclick="location.href='{% url 'core:product_update' product.pk %}'"
+    <button class="btn btn-outline-success" onclick="location.href='{% url 'core:product_update' product.pk %}'"
             type="button" style="float: right;"> Изменить
     </button>
     {% endif %}
